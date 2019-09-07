@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 1}
+\author{Bill Nguyen and nguyew3}
+\date{\today}
+
+\begin {document}
+
+\maketitle
+
+For this report what I will be discussing are to start the testing process, in which I explain each test cases and results of each test for my program and also my partner's program. Also I will list assumptions I made and my opinion about the design specification of the project. Finally I will be answering the questions mentioned in step 8.
+
+\section{Testing of the Original Program}
+For testing my approach was to have cases that were expected, cases that were normal but less likely to happen and cases that were extreme or due to human error. This was my reasoning in order to make sure program works in many different scenarios. All test cases below, my program passed all these cases.
+\begin{itemize}
+  \item testSort1 - test when there is no students, result should return an empty list. Decided to use this as an extreme case to see what happens if there is no info to sort.
+  \item testSort2 - test with inputs you would expect, with no input error. Made this a normal case too see if my implementation actually works.
+  \item testAverage1 - test when there is no students and should return 0. The reason I decided to test is the same reason as testSort1 and also made it return 0 to avoid zerobydivison error.
+  \item testAverage2 - test with expected inputs to see if implementation is correct
+  \item testAverage3 - test with only male inputs but checks for female average, should return 0. Decided to test this as an extreme case and an easier way to make sure function only calculates average of given gender.
+  \item testAverage4 - test when input is incorrect, should return the statement "in g enter male or female". Decided to test it to see what happens when there is human error.
+  \item testAllocate1 - test when all files are empty, should return a dictionary of departments with empty list. Decided to test with same reasoning as testSort1.
+  \item testAllocate2 - test with normal inputs to make sure implementation is correct
+  \item testAllocate3 - test when no one has free choice, to make sure if there is no free choice everything still runs smoothly.
+  \item testAllocate4 - test when some people get third choice stream. Decided to test this to further insure my program works correctly, in a more difficult normal input.
+  \item testAllocate5 - test when every student has gpa below 4.0 or gpa above 12.0, should return dictinary of departments with empty list. Decided to test to make sure students that are allocated have the correct gpa to enter second year.
+\end{itemize}
+
+
+
+\section{Results of Testing Partner's Code}
+
+My partner's code had variables that contain his/her textfiles so when I tested it, it said it could not identify variable, so I replaced the variable with L for the average function.
+\begin{itemize}
+\item testSort1 - passed
+\item testSort2 - passed
+\item testAverage1 - failed, because I had a condition when there are no students, returns zero but partner did not have it, so it gave a zerodivision error.
+\item testAverage2 - passed
+\item testAverage3 - failed, same reason as testAverage1 
+\item testAverage4 - failed, had condition for when user types wrong input, while partner did not
+\item testAllocate1 - passed
+\item The rest of the testAllocate failed, mainly due to the reason I assumed people who have 4.0 gpa can enter second year, while my partner assumed they are ineligible to enter second year.
+\end{itemize}
+
+\section{Discussion of Test Results}
+
+What I learned by doing this exercise is how to improve my testing abilities by having a mindset of how can I destroy this program. Also it showed me to not test for inputs that are expected but also for the unexpected inputs because not every input is going to be correct.
+
+\textbf{Assumptions I Made:}
+\begin{itemize}
+  \item when all 3 student's choices are full decided not to allocate student, since if that was the scenario in real life a student would not be allocated to a random department.
+  \item Assumed that people who have 4.0 gpa are eligible to enter second year
+  \item Assumed that students in textfile had all correct information
+  \item Assumed for the most part there was no human error when entering inputs
+  \item Assumed people who have gpa higher than 12 are not allocated to second year
+
+\end{itemize}
+
+
+\subsection{Problems with Original Code}
+
+In terms of my testing, my program passed all the test cases but it is not perfect since it does not account for majority of input errors, such as inputing a something besides a list, inputting incorrect information etc...
+
+\subsection{Problems with Partner's Code}
+
+For my partner's program first problem was that he/she had a variable that conatains his/her textfiles which made me have to replace the variable with L for the average function. Also my partner had different assumptions then I did leading to some test cases failing such as assumming 4.0 gpa is ineligible.
+\section{Critique of Design Specification}
+
+\begin{itemize}
+  \item Liked how we can choose our own data structure for textfile, makes it easier to implement it
+  \item Didn't enjoy the assumptions we had to make in certain scenarios such as deciding what to do if top 3 choices were full
+  \item Wish I knew what types of input errors were required to be fixed since there are a lot of possible errors, so wish I knew the types of errors needed to be fixed
+  
+
+\end{itemize}
+
+
+%\newpage
+
+\section{Answers to Questions}
+
+\begin{enumerate}[(a)]
+
+\item 
+To make average function more general, one idea is to have the option to calculate the average of all students as well. Also, another idea is to have option to calculate median and mode to get more sets of data that can be useful for the university. To make sort more general instead of sorting just by gpa, you can sort by alphabetical order.
+
+\item
+Aliasing means that you use assign the dictionary to a variable and then assign that variable to another variable. This might be a problem for dictionaries because if you change the content of the second variable it changes the content of the first variable. To guard against this problem is to use tuples since they immutable meaning you can't change the content of the students.
+
+\item 
+2 test cases for read allocation can be first normal inputs to test if ReadAllocationData works at all and a second test case can be maybe a student info is half filled to check what happens during the extreme cases and when everything is not perfect. I believe CalcModule was selected over ReadAllocationData because when you test CalcModule, it would be easier for to generate the lists from ReadAllocationData, then to actually hardcode lists for test cases, meaning it would be easier to test CalcModule by making sure ReadAllocationData is correct. 
+
+
+\item
+The problem with using strings in these cases, is that the user has to input the exact same string that you used, meaning if for example you set male with a lower case and the user typed male with an uppercase, the function would not work, this also applies to keys in the dictionary. A better way to possibly do it is make the input all lower case in the function in order to avoid cases where a person inputs "Male" instead of "male". 
+
+\item
+
+Other options could be creating a class, in which each student can be represented as an object with all their requirements used as variables in the class. I believe changing the data structure would be better, to possibly for example because you can represent an student as an actual object, instead of a string/key.
+
+\item
+You wouldn't have to change the code for calcmodule since you don't change anything in the list of choices, but for read allocation data you would have to change the code, since tuples are immutable so you wouldn't be able to append the choices to the tuple. So for the question with custom class, again it's the same reasoning as the sentence above, because you don't modify the data of choices so changing the code is not necessary, but in read allocation data, you have to modify the data, meaning you would have to change the code. Also if you change other list like the list for departments, then you would have to change the code of calcmodule since you are constantly modifying the list. 
+
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+%\lstset{language=C,linewidth=.94\textwidth,xleftmargin=1.1cm}
+
+\def\thesection{\Alph{section}}
+
+\section{Code for ReadAllocationData.py}
+
+\noindent \lstinputlisting{../src/ReadAllocationData.py}
+
+\newpage
+
+\section{Code for CalcModule.py}
+
+\noindent \lstinputlisting{../src/CalcModule.py}
+
+\newpage
+
+\section{Code for testCalc.py}
+
+\noindent \lstinputlisting{../src/testCalc.py}
+
+\newpage
+
+\section{Code for Partner's CalcModule.py}
+
+\noindent \lstinputlisting{../partner/CalcModule.py}
+
+\newpage
+
+\section{Makefile}
+
+\lstset{language=make}
+\noindent \lstinputlisting{../Makefile}
+
+\end {document}
+
+
+
+
+\item test_seq_end - input is an empty sequence and it checks to see if the end() method returns True since it is the end of the seqeunce.
+\item test_seq_end2 - another test case for the method end() but this time SeqADT has an array with a department and checks to see if the end() method will return false
+\item test_seq_start - checks to see if you run the start() method that it returns zero 

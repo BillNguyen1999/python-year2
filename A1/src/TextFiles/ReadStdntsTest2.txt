@@ -1,0 +1,6 @@
+macid1,first1,last1,male,10.8,software mechanical electrical
+macid2,first2,last2,male,11.0,civil chemical engphys
+macid3,firt3,last3,female,12.0,software mechanical electrical
+macid4,firt4,last4,male,11.0,chemical mechanical electrical
+macid5,firt5,last5,male,9.0,mechanical electrical materials
+macid6,firt6,last6,female,4.0,engphys mechanical materials
