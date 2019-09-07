@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 2 Solution}
+\author{Bill Nguyen and nguyew3}
+\date{\today}
+
+\begin {document}
+
+\maketitle
+
+For this report I will be discussing about the testing process, critique the design specification and answer all the necessary questions. 
+
+\section{Testing of the Original Program}
+To start my approach to testing was to first test for normal cases, where I tested for inputs that are normal or expected from the user. After testing for normal cases my next goal was to test for cases that have expected errors that were mentioned in the specification such as KeyError, so I made some test cases that check if the error is raised. Finally, I made some extreme test cases where the input is not expected, or used numbers that are probably never going to be an input. There were 18 passed test cases and 0 failed test cases.
+\newline
+\newline
+test-All.py has 3 classes TestSeqADT, TestDCapALst, TestSALst
+\newline
+\newline
+TestSeqADT
+\begin{itemize}
+	\item test-seq-next: test for a normal input, in which a sequence is initialized with a couple departments and it tests to see if the next() method works.
+	\item test-seq-next-stop: input is an empty sequence and it test the next() method to see if it raises the StopIteration exception since it is an empty sequence.
+	\item test-seq-end: input is an empty sequence and it checks to see if the end() method returns True since it is the end of the seqeunce.
+	\item test-seq-end2: another test case for the method end() but this time, SeqADT has an array with a department and checks to see if the end() method will return False.
+	\item test-seq-start: checks to see if the start() method returns zero.
+\end{itemize}
+
+TestDCapALst
+\begin{itemize}
+	\item test-dcap-add-error: checks to see if KeyError works by adding the same department twice.
+	\item test-dcap-remove-error: checks to see if KeyError works for the remove() method by trying to remove a department that does not exist in the list.
+	\item test-dcap-capacity: checks to see if the capacity method works for a normal input.
+	\item test-dcap-capacity2: checks to see if the capacity method works for a large input (in this case 100000).
+	\item test-dcap-capacity3: checks to see if the KeyError exception is raised when an individual tries to check the capacity of a department that is not in the list.
+	\item test-dcap-elm: checks to see if the civil department is in the list, which in this case it should be (so elm should be True).
+	\item test-dcap-elm2: returns False since the specified department is no longer in the list. Also if the input is not a department it returns False.
+\end{itemize}
+
+TestSALst
+\begin{itemize}
+	\item test-sal-add-error: checks if a KeyError is raised, when the user tries the enter the same student into the list twice.
+	\item test-sal-remove-error: checks if a KeyError is raised when the user tries to remove a student that is not present in the student list.
+	\item test-sal-elm: checks the elm() method by seeing if a student is in the list and in this test case the result should be True.
+	\item test-sal-sort: checks if the sort() method works by checking if the sort() method returns a sorted list (based on gpa) and the list only contains students that have free choice and if there gpa is greater or equal than 4.0.
+	\item test-sal-average: checks if the average method() works by getting the average gpa of a student list and checks only the average of male students.
+	\item test-sal-allocate checks if the allocate method() works in a normal case.
+\end{itemize}
+
+
+
+\section{Results of Testing Partner's Code}
+
+When running my test cases on my partner's code the results were successful for all test cases. The main reason why I believe all my test cases worked, on my partner's code is because we used the same data structure, since for DCapALst and SALst we both used a list. To add on, if my partner used dictionaries as their data structure some of my test cases wouldn't have worked, since I assumed the data structure is a list. Also, another possible reason why my partner's code worked for every test case is because of the possible lack of extreme test cases, that I did not test and maybe if I tested a large amount of extreme test cases, it could have led to my partner's code failing some of those extreme test cases.
+
+\section{Critique of Given Design Specification}
+
+ To start some advantages were that we knew exactly what each class did and didn't have to make many assumptions compared to assignment one. Also I ejoyed how we can choose our own data structure for the set, which was different from assignment one since, it was restricted to only using dictionaries. Finally, my last advantage was the ability to see a sample inputs and inputs file, which helped me speed up the process of understanding the assignment specification. In terms of disadavantages, the main one was the specification was hard to understand, since it was the first time I saw this type of specification, and when looking back at this assignment it took me a longer time understanding the specification than actually implementing the specification. When looking at how to improve the design specification my suggestion would be to use a natural language specification, that has no ambiguity and shows sample inputs, ouputs and input files.
+
+\section{Answers}
+
+\begin{enumerate}
+
+\item In A1 natural language was beneficial because it was easier to understand what each class did, since it was explained in a way that many individuals are accustomed to. The negatives of A1 was that you had to assume many things and the format was very unorganized since it lacks many things such as tables and was condensed into paragraphs. Now for A2, the formal specification was very hard to understand since, the specification did not follow a style that many individual are accustomed to and it had new terminology and symbols that were hard to understand. But in terms of advantages, the format of the specification was very organized since it explained each method one by one and in the formal specification it used tools such as tables to indicate aspects such as inputs, outputs and exceptions, which was something really useful.
+\item To make the assumption into an exception you can raise an OutOfBoundsError when the gpa is out the range of 0 to 12. To add on you do not need to replace the type of gpa (float) with a new ADT, since you can compare the type float with the range of 0 to 12.
+\item SALst and DCapALst are very similar because they are both a set with the same format, the only difference is that the SALst set has a string (macid) and SInfoT (student info) type while DCapALst has DeptT (department) and integer (capacity) type. Also SALst and DCapALst have very similar methods such as add, remove, elm and capacity/info. So what somebody can do to take advantage of these similarities is in the documentation you can just make one table for SALst and DCapALst in which, the input can be either a string and SInfoT or an integer and DeptT and you can do this for every method that is similar (add, remove etc.).
+\item The methods that really show the generabilty of A2 compared to A1 is the average and sort methods in SALst.py. In A1 you just sort the given list of students based on gpa and for the average function you get the average of all males or females in the list. But in A2 for sort and average, the input is a lambda function that gives you the option to only sort or get the average of a list based on the conditions of the lambda function. An example is SALst.sort(lambda t: (t.freechoice) and t.gpa $>= 4.0$) which gives the option to sort students that meet these conditions, which is something A1 did not allow us to do.
+\item SeqADT is better than a regular list since it provides a better user interface, because each department is represented as an object, instead of an index which makes it easier for the user to navigate. Also an ADT follows the idea of encapsulation, meaning it is better to hide information that the user does not need, something a list simply cannot do.
+\item Some advantages of enums is to start, enums can be used to store a string value as a constant this is useful because it eliminates the ambiguity of strings (spelling, capitalization etc.). Second, enums are immutable since they are constants, which leads to the value to be thread-safe (functions correctly without unintended interaction). Macids weren't used as enums, since there are an infinite amount of possible of macids making it impossible to make each macid their own enum.
+
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+%\lstset{language=C,linewidth=.94\textwidth,xleftmargin=1.1cm}
+
+\def\thesection{\Alph{section}}
+
+\section{Code for StdntAllocTypes.py}
+
+\noindent \lstinputlisting{../src/StdntAllocTypes.py}
+
+\newpage
+
+\section{Code for SeqADT.py}
+
+\noindent \lstinputlisting{../src/SeqADT.py}
+
+\newpage
+
+\section{Code for DCapALst.py}
+
+\noindent \lstinputlisting{../src/DCapALst.py}
+
+\newpage
+
+\section{Code for AALst.py}
+
+\noindent \lstinputlisting{../src/AALst.py}
+
+\newpage
+
+\section{Code for SALst.py}
+
+\noindent \lstinputlisting{../src/SALst.py}
+
+\newpage
+
+\section{Code for Read.py}
+
+\noindent \lstinputlisting{../src/Read.py}
+
+\newpage
+
+\section{Code for test-All.py}
+
+\noindent \lstinputlisting{../src/test_All.py}
+
+\newpage
+
+\section{Code for Partner's SeqADT.py}
+
+\noindent \lstinputlisting{../partner/SeqADT.py}
+
+\newpage
+
+\section{Code for Partner's DCapALst.py}
+
+\noindent \lstinputlisting{../partner/DCapALst.py}
+
+\newpage
+
+\section{Code for Partner's SALst.py}
+
+\noindent \lstinputlisting{../partner/SALst.py}
+
+\end {document}
